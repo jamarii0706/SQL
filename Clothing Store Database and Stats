@@ -1,0 +1,37 @@
+CREATE TABLE clothing_store (
+id INTEGER PRIMARY KEY, 
+Name TEXT,
+Color TEXT,
+Size TEXT,
+Quantity INTEGER
+);
+
+/* Inserting the items into the Table */
+
+INSERT INTO clothing_store VALUES (1, "Polo Shirt", "Red", "Small", 5);
+INSERT INTO clothing_store VALUES (2, "Compression Shirt", "White", "Medium", 3);
+INSERT INTO clothing_store VALUES (3, "Blue Jeans", "Blue", "Small", 3);
+INSERT INTO clothing_store VALUES (4, "Polo Shirt", "Black", "Large", 8);
+INSERT INTO clothing_store VALUES (5, "Gold Necklaces", "Gold", "Small", 3);
+INSERT INTO clothing_store VALUES (6, "Polo Shirt", "Yellow", "Small", 6);
+INSERT INTO clothing_store VALUES (7, "Shorts", "Pink", "Small", 4);
+INSERT INTO clothing_store VALUES (8, "Shorts", "Purple", "Medium", 3);
+INSERT INTO clothing_store VALUES (9, "Jean Shorts", "Blue", "Large", 4);
+INSERT INTO clothing_store VALUES (10, "Flannel", "Black and Red", "Small", 7);
+INSERT INTO clothing_store VALUES (11, "Dress Pants", "Black", "Extra Large", 4);
+INSERT INTO clothing_store VALUES (12, "Dress Shirts", "White", "Large", 4);
+INSERT INTO clothing_store VALUES (13, "Hoodie", "Dark Blue", "Medium", 1);
+INSERT INTO clothing_store VALUES (14, "Jean Jacket", "Blue", "Small", 6);
+INSERT INTO clothing_store VALUES (15, "T-Shirt", "White", "Medium", 10);
+
+/* Ordering the Items by their Quantity */
+
+SELECT * FROM clothing_store ORDER BY Quantity;
+
+/*What is the average amount of items in stock?*/
+
+SELECT AVG (Quantity) FROM clothing_store;
+
+/*What is the total number of items we have?*/
+
+SELECT SUM (Quantity) FROM clothing_store;
