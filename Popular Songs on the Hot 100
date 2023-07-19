@@ -1,0 +1,89 @@
+/* Creating a table for singers and popular songs by them. Who had the highest charting songs and who had the longest charting songs? How many number ones songs did they have in total and how long did their songs chart in total?*/
+
+
+/*Creating the table with their names*/
+
+CREATE TABLE Singers 
+(singer_id INTEGER PRIMARY KEY,
+name TEXT);
+
+/* Creating the table with their songs */
+
+CREATE TABLE Songs
+(song_id INTEGER PRIMARY KEY, 
+singer_id INTEGER, 
+song_name TEXT);
+
+/* Creating a table that shows where the song was on the Billboard Charts */
+
+CREATE TABLE Billboard
+(song_id INTEGER PRIMARY KEY, 
+song_name TEXT, 
+chart_placement INTEGER,
+weeks_charted INTEGER);
+
+/* Inserting the singers into the singers table */
+
+INSERT INTO Singers VALUES (1, "Rihanna");
+INSERT INTO Singers VALUES (2, "Beyonce");
+INSERT INTO Singers VALUES (3, "Taylor Swift");
+
+
+/* Inserting songs into the Songs table */
+
+INSERT INTO Songs VALUES (1, 1, "Pon De Replay"),
+(2, 1, "SOS"),
+(3, 1, "Take A Bow"),
+(4, 1, "Umbrella"),
+(5, 1, "Needed Me"),
+(6, 2, "Crazy In Love"),
+(7, 2, "Irreplaceable"),
+(8, 2, "Halo"),
+(9, 2, "Check On It"),
+(10, 2, "Baby Boy"),
+(11, 3, "Love Story"),
+(12, 3, "We Are Never Getting Back Together"),
+(13, 3, "Shake It Off"),
+(14, 3, "Blank Space"),
+(15, 3, "Fifteen");
+
+/* Inserting the songs into the Billboard charts; where the charted and how long they charted */
+
+INSERT INTO Billboard VALUES (1, "Pon De Replay", 2, 27),
+(2, "SOS", 1, 28),
+(3, "Take A Bow", 1, 27),
+(4, "Umbrella", 1, 34),
+(5, "Needed Me", 7, 45),
+(6, "Crazy In Love", 1, 27),
+(7, "Irreplaceable", 1, 30),
+(8, "Halo", 5, 31),
+(9, "Check On It", 1, 28),
+(10, "Baby Boy", 1, 29),
+(11, "Love Story", 4, 49),
+(12, "We Are Never Getting Back Together", 1, 24),
+(13, "Shake It Off", 1, 50),
+(14, "Blank Space", 1, 36),
+(15, "Fifteen", 23, 21);
+
+/* Creating a query to find out who had the longest charting song */
+
+SELECT singers.name AS Singers, songs.song_name AS Songs, billboard.weeks_charted AS "Weeks Charted"
+FROM Singers JOIN Songs ON singers.singer_id = songs.singer_id
+JOIN Billboard ON songs.song_id = billboard.song_id ORDER BY ("Weeks Charted") DESC LIMIT 1;
+
+/* Creating a query to find out who had the most number one songs */
+
+SELECT singers.name, COUNT(*) AS "Amount of Number Ones"
+FROM Singers
+JOIN Songs ON singers.singer_id = songs.singer_id
+JOIN Billboard ON songs.song_id = billboard.song_id
+WHERE billboard.chart_placement = 1
+GROUP BY singers.name;
+
+/*Finding out how many weeks  their songs charted in total on the Hot 100 */
+
+SELECT singers.name, SUM(weeks_charted) AS "Weeks on Chart"
+FROM Singers
+JOIN Songs ON singers.singer_id = songs.singer_id
+JOIN Billboard ON songs.song_id = billboard.song_id
+GROUP BY singers.name ORDER BY "Weeks on Chart" DESC;
