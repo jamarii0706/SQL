@@ -43,7 +43,7 @@ WHERE FebSales.Quantity>2
 AND length(orderid) = 6 
 AND orderid <> 'Order ID';
 
-/* List all the products sold in Los Angeles in February, and how many of each
+/* 8. List all the products sold in Los Angeles in February, and how many of each
 were sold. */
 
 SELECT distinct Product, SUM(quantity)
