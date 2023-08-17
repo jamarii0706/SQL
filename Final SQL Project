@@ -7,8 +7,9 @@ SELECT c.FirstName, c.LastName, e.FirstName, e.LastName
 FROM customers c JOIN employees e ON c.SupportRepId = e.EmployeeId;
 
 /* How many tracks are in each type of playlist? */
-SELECT p.PlaylistID, p.Name, COUNT(tracks.Name) AS "Tracks in Playlist"
-FROM playlists p FULL JOIN playlist_track ON p.PlaylistId = playlist_track.PlaylistId
+SELECT p.PlaylistID, p.Name, COUNT(tracks.TrackId) AS "Tracks in Playlist"
+FROM playlists p
+FULL JOIN playlist_track ON p.PlaylistId = playlist_track.PlaylistId
 FULL JOIN tracks ON playlist_track.TrackId = tracks.TrackId
-GROUP BY p.Name
-ORDER BY p.PlaylistId
+GROUP BY p.PlaylistID, p.Name
+ORDER BY p.PlaylistID;
