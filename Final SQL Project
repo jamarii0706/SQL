@@ -1,0 +1,7 @@
+/* This project is based off of a dataset which represents a digital 
+media store and includes tables for artists, albums, media tracks, invoices, 
+and customers. */
+
+/* Who are the support representatives for each customer? */
+SELECT c.FirstName, c.LastName, e.FirstName, e.LastName
+FROM customers c JOIN employees e ON c.SupportRepId = e.EmployeeId;
