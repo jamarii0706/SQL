@@ -13,3 +13,13 @@ FULL JOIN playlist_track ON p.PlaylistId = playlist_track.PlaylistId
 FULL JOIN tracks ON playlist_track.TrackId = tracks.TrackId
 GROUP BY p.PlaylistID, p.Name
 ORDER BY p.PlaylistID;
+
+/* What is the total duration of tracks in each playlist */
+WITH PlaylistDuration AS (
+    SELECT p.PlaylistId, p.Name AS PlaylistName, SUM(t.Milliseconds) AS TotalDuration
+    FROM playlists p
+    JOIN playlist_track pt ON p.PlaylistId = pt.PlaylistId
+    JOIN tracks t ON pt.TrackId = t.TrackId
+    GROUP BY p.PlaylistId, p.Name
+)
+SELECT * FROM PlaylistDuration;
