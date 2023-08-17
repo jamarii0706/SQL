@@ -5,3 +5,10 @@ and customers. */
 /* Who are the support representatives for each customer? */
 SELECT c.FirstName, c.LastName, e.FirstName, e.LastName
 FROM customers c JOIN employees e ON c.SupportRepId = e.EmployeeId;
+
+/* How many tracks are in each type of playlist? */
+SELECT p.PlaylistID, p.Name, COUNT(tracks.Name) AS "Tracks in Playlist"
+FROM playlists p FULL JOIN playlist_track ON p.PlaylistId = playlist_track.PlaylistId
+FULL JOIN tracks ON playlist_track.TrackId = tracks.TrackId
+GROUP BY p.Name
+ORDER BY p.PlaylistId
