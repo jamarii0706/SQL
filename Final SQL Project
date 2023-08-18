@@ -3,10 +3,12 @@ media store and includes tables for artists, albums, media tracks, invoices,
 and customers. */
 
 /* Who are the support representatives for each customer? */
+
 SELECT c.FirstName, c.LastName, e.FirstName, e.LastName
 FROM customers c JOIN employees e ON c.SupportRepId = e.EmployeeId;
 
 /* How many tracks are in each type of playlist? */
+
 SELECT p.PlaylistID, p.Name, COUNT(tracks.TrackId) AS "Tracks in Playlist"
 FROM playlists p
 FULL JOIN playlist_track ON p.PlaylistId = playlist_track.PlaylistId
@@ -15,6 +17,7 @@ GROUP BY p.PlaylistID, p.Name
 ORDER BY p.PlaylistID;
 
 /* What is the total duration of tracks in each playlist */
+
 WITH PlaylistDuration AS (
     SELECT p.PlaylistId, p.Name AS PlaylistName, SUM(t.Milliseconds) AS TotalDuration
     FROM playlists p
@@ -23,3 +26,15 @@ WITH PlaylistDuration AS (
     GROUP BY p.PlaylistId, p.Name
 )
 SELECT * FROM PlaylistDuration;
+
+/* Which customers have spent the most amount of money? */
+
+SELECT c.CustomerId, c.FirstName, c.LastName, 
+       ROUND(SUM(ii.Quantity * ii.UnitPrice), 2) AS TotalSpent
+FROM customers c
+JOIN invoices i ON c.CustomerId = i.CustomerId
+JOIN invoice_items ii ON i.InvoiceId = ii.InvoiceId
+GROUP BY c.CustomerId, c.FirstName, c.LastName
+ORDER BY TotalSpent DESC
+LIMIT 5;
+
