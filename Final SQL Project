@@ -2,12 +2,12 @@
 media store and includes tables for artists, albums, media tracks, invoices, 
 and customers. */
 
-/* Who are the support representatives for each customer? */
+/* 1. Who are the support representatives for each customer? */
 
 SELECT c.FirstName, c.LastName, e.FirstName, e.LastName
 FROM customers c JOIN employees e ON c.SupportRepId = e.EmployeeId;
 
-/* How many tracks are in each type of playlist? */
+/* 2. How many tracks are in each type of playlist? */
 
 SELECT p.PlaylistID, p.Name, COUNT(tracks.TrackId) AS "Tracks in Playlist"
 FROM playlists p
@@ -16,7 +16,7 @@ FULL JOIN tracks ON playlist_track.TrackId = tracks.TrackId
 GROUP BY p.PlaylistID, p.Name
 ORDER BY p.PlaylistID;
 
-/* What is the total duration of tracks in each playlist */
+/* 3. What is the total duration of tracks in each playlist */
 
 WITH PlaylistDuration AS (
     SELECT p.PlaylistId, p.Name AS PlaylistName, SUM(t.Milliseconds) AS TotalDuration
@@ -27,7 +27,7 @@ WITH PlaylistDuration AS (
 )
 SELECT * FROM PlaylistDuration;
 
-/* Which customers have spent the most amount of money? */
+/* 4. Which customers have spent the most amount of money? */
 
 SELECT c.CustomerId, c.FirstName, c.LastName, 
        ROUND(SUM(ii.Quantity * ii.UnitPrice), 2) AS TotalSpent
@@ -37,4 +37,10 @@ JOIN invoice_items ii ON i.InvoiceId = ii.InvoiceId
 GROUP BY c.CustomerId, c.FirstName, c.LastName
 ORDER BY TotalSpent DESC
 LIMIT 5;
+
+/* 5. How many invoices were there in 2009? */
+
+SELECT COUNT(InvoiceId) AS "Number of Invoices" 
+FROM invoices
+WHERE InvoiceDate between '2009-01-01 00:00' AND '2009-12-31 00:00'
 
