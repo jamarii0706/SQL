@@ -42,11 +42,23 @@ LIMIT 5;
 
 SELECT COUNT(InvoiceId) AS "Number of Invoices" 
 FROM invoices
-WHERE InvoiceDate between '2009-01-01 00:00' AND '2009-12-31 00:00'
+WHERE InvoiceDate between '2009-01-01 00:00' AND '2009-12-31 00:00';
 
 /* 6. What are the total sales for 2009? */
 
-SELECT SUM(Total)
+SELECT ROUND(SUM(Total),2) AS "Total Sales in 2009"
 FROM chinook.Invoices
 WHERE InvoiceDate BETWEEN '2009-01-01' AND '2009-12-31';
+
+/* 7. What are the total sales made by each sales agent? */
+
+SELECT emp.FirstName, emp.LastName,
+ROUND(SUM(Inv.Total), 2) as 'Total Sales' 
+FROM chinook.Employees emp
+JOIN chinook.Customers cust 
+ON cust.SupportRepId = emp.EmployeeId
+JOIN chinook.Invoices Inv 
+ON Inv.CustomerId = cust.CustomerId
+WHERE emp.Title = 'Sales Support Agent' 
+GROUP BY emp.FirstName;
 
