@@ -21,3 +21,13 @@ GROUP BY productLine;
 SELECT customerType, ROUND(SUM(Total),2) AS "Total Sales"
 FROM supermarket
 GROUP BY customerType;
+
+/* 4. What are the most profitable products in terms of gross income? */
+
+SELECT productLine, ROUND(SUM(gross_income),2) AS "Total Gross Income"
+FROM supermarket
+GROUP BY productLine
+ORDER BY "Total Gross Income" DESC;
+
+
+
