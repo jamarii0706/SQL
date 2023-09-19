@@ -15,3 +15,9 @@ ORDER BY Total DESC;
 SELECT productLine, SUM(quantity) AS "Total Bought", ROUND(SUM(Total),2) AS "Total Sales"
 FROM supermarket
 GROUP BY productLine;
+
+/* 3. How do sales differ between member and non-member customers? */
+
+SELECT customerType, ROUND(SUM(Total),2) AS "Total Sales"
+FROM supermarket
+GROUP BY customerType;
