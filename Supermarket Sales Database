@@ -1,0 +1,13 @@
+/* This project is based off of a dataset which represents the historical record of sales data in 3 different 
+supermarkets. It includes tables for the invoice id, branch, city, the customer type, 
+gender, product line, the unit price, quantity, tax, the total, the date, the time of purchase, the payment 
+type, the cost of goods sold, the gross margin percentage, the gross income, and the customer rating. */
+
+/* 1. What are the total sales for each city? Which city has the most sales? */
+
+SELECT city, ROUND(SUM(Total),2) AS "Total"
+FROM supermarket
+GROUP BY city
+ORDER BY Total DESC;
+
+
