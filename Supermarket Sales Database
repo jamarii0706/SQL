@@ -10,4 +10,8 @@ FROM supermarket
 GROUP BY city
 ORDER BY Total DESC;
 
+/* 2. What is the quantity sold for each product line and what are the total sales made? */
 
+SELECT productLine, SUM(quantity) AS "Total Bought", ROUND(SUM(Total),2) AS "Total Sales"
+FROM supermarket
+GROUP BY productLine;
