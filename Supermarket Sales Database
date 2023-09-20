@@ -29,5 +29,11 @@ FROM supermarket
 GROUP BY productLine
 ORDER BY "Total Gross Income" DESC;
 
+/* 5. How many male and female customers have made purchases in each branch? */
+
+SELECT Payment AS "Payment Type", COUNT(*) AS Payment
+FROM supermarket
+GROUP BY Payment;
+
 
 
