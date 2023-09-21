@@ -35,5 +35,11 @@ SELECT Payment AS "Payment Type", COUNT(*) AS Payment
 FROM supermarket
 GROUP BY Payment;
 
+/* 6. What is the average rating for each product line? */
+
+SELECT productLine AS "Product Line", ROUND(AVG(rating), 2) AS "Average Rating"
+FROM supermarket
+GROUP BY productLine 
+ORDER BY "Average Rating";
 
 
